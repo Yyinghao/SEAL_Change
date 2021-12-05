@@ -5,6 +5,7 @@
 #include "seal/util/uintarith.h"
 #include "seal/util/uintarithsmallmod.h"
 #include <algorithm>
+#include <iostream>
 #ifdef SEAL_USE_INTEL_HEXL
 #include "seal/memorymanager.h"
 #include "seal/util/iterator.h"
@@ -199,6 +200,7 @@ namespace intel
             std::uint64_t input_mod_factor, std::uint64_t output_mod_factor)
         {
             get_ntt(N, modulus, root).ComputeForward(operand, operand, input_mod_factor, output_mod_factor);
+            cout<<"compute_forward_ntt"<<endl;
         }
 
         /**
@@ -216,6 +218,7 @@ namespace intel
             std::uint64_t input_mod_factor, std::uint64_t output_mod_factor)
         {
             get_ntt(N, modulus, root).ComputeInverse(operand, operand, input_mod_factor, output_mod_factor);
+            cout<<"compute_inverse_ntt"<<endl;
         }
 
     } // namespace seal_ext
