@@ -5,6 +5,7 @@
 #include "seal/util/polyarithsmallmod.h"
 #include "seal/util/scalingvariant.h"
 #include "seal/util/uintarith.h"
+#include <iostream>
 
 using namespace std;
 
@@ -53,6 +54,8 @@ namespace seal
                         get<0>(J)[coeff_index] = add_uint_mod(get<0>(J)[coeff_index], scaled_rounded_coeff, get<1>(J));
                     });
             });
+            cout<<"add_c2p_with_scaling_variant"<<endl;
+
         }
 
         void multiply_sub_plain_with_scaling_variant(
@@ -96,6 +99,7 @@ namespace seal
                         get<0>(J)[coeff_index] = sub_uint_mod(get<0>(J)[coeff_index], scaled_rounded_coeff, get<1>(J));
                     });
             });
+            cout<<"cout<<"sub_c2p_with_scaling_variant"<<endl;"
         }
     } // namespace util
 } // namespace seal
