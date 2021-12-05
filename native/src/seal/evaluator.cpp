@@ -12,7 +12,7 @@
 #include <algorithm>
 #include <cmath>
 #include <functional>
-
+#include <iostream>
 using namespace std;
 using namespace seal::util;
 
@@ -1800,7 +1800,7 @@ namespace seal
 
         // Transform to NTT domain
         ntt_negacyclic_harvey(plain_iter, coeff_modulus_size, ntt_tables);
-
+        cout<<"NTT"<<endl;
         plain.parms_id() = parms_id;
     }
 
@@ -1840,7 +1840,7 @@ namespace seal
 
         // Transform each polynomial to NTT domain
         ntt_negacyclic_harvey(encrypted, encrypted_size, ntt_tables);
-
+        cout<<"NTT"<<endl;
         // Finally change the is_ntt_transformed flag
         encrypted.is_ntt_form() = true;
 #ifdef SEAL_THROW_ON_TRANSPARENT_CIPHERTEXT
@@ -1887,7 +1887,7 @@ namespace seal
 
         // Transform each polynomial from NTT domain
         inverse_ntt_negacyclic_harvey(encrypted_ntt, encrypted_ntt_size, ntt_tables);
-
+        cout<<"INTT"<<endl;
         // Finally change the is_ntt_transformed flag
         encrypted_ntt.is_ntt_form() = false;
 #ifdef SEAL_THROW_ON_TRANSPARENT_CIPHERTEXT
