@@ -4,6 +4,7 @@
 #include "seal/util/polyarithsmallmod.h"
 #include "seal/util/uintarith.h"
 #include "seal/util/uintcore.h"
+#include "iostream"
 
 #ifdef SEAL_USE_INTEL_HEXL
 #include "hexl/hexl.hpp"
@@ -82,6 +83,7 @@ namespace seal
                 std::uint64_t sum = get<0>(I) + get<1>(I);
                 get<2>(I) = SEAL_COND_SELECT(sum >= modulus_value, sum - modulus_value, sum);
             });
+            cout<<"poly_add"<<endl;
 #endif
         }
 
@@ -127,6 +129,7 @@ namespace seal
                 std::int64_t borrow = sub_uint64(get<0>(I), get<1>(I), &temp_result);
                 get<2>(I) = temp_result + (modulus_value & static_cast<std::uint64_t>(-borrow));
             });
+            cout<<"poly_sub"<<endl;
 #endif
         }
 
@@ -159,6 +162,7 @@ namespace seal
                 const uint64_t x = get<0>(I);
                 get<1>(I) = add_uint_mod(x, scalar, modulus);
             });
+            cout<<"poly_add_scalar"<<endl;
 #endif
         }
 
@@ -191,6 +195,7 @@ namespace seal
                 const uint64_t x = get<0>(I);
                 get<1>(I) = sub_uint_mod(x, scalar, modulus);
             });
+             cout<<"poly_sub_scalar"<<endl;
 #endif
         }
 
@@ -220,6 +225,7 @@ namespace seal
                 const uint64_t x = get<0>(I);
                 get<1>(I) = multiply_uint_mod(x, scalar, modulus);
             });
+            cout<<"multiply_poly_scalar_coeffmod"<<endl;
 #endif
         }
 
@@ -280,6 +286,7 @@ namespace seal
                 // Claim: One more subtraction is enough
                 get<2>(I) = SEAL_COND_SELECT(tmp3 >= modulus_value, tmp3 - modulus_value, tmp3);
             });
+             cout<<"dyadic_product_coeffmod"<<endl;
 #endif
         }
 
@@ -312,7 +319,7 @@ namespace seal
                     result = poly_coeff;
                 }
             });
-
+            cout<<"poly_infty_norm_coeffmod"<<endl;
             return result;
         }
 
