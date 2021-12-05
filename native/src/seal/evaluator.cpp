@@ -247,10 +247,12 @@ namespace seal
         {
         case scheme_type::bfv:
             bfv_multiply(encrypted1, encrypted2, pool);
+            
             break;
 
         case scheme_type::ckks:
             ckks_multiply(encrypted1, encrypted2, pool);
+            
             break;
 
         default:
@@ -445,7 +447,7 @@ namespace seal
             // Step (8): use Shenoy-Kumaresan method to convert the result to base q and write to encrypted1
             rns_tool->fastbconv_sk(temp_Bsk, get<2>(I), pool);
         });
-
+            cout<<"bfv_multiply_c2c_inplace"<<endl;
         // Set the scale
         encrypted1.scale() = new_scale;
     }
@@ -588,7 +590,7 @@ namespace seal
             // Set the final result
             set_poly_array(temp, dest_size, coeff_count, coeff_modulus_size, encrypted1.data());
         }
-
+        cout<<"ckks_multiply_c2c_inplace"<<endl;
         // Set the scale
         encrypted1.scale() = new_scale;
     }
@@ -772,7 +774,7 @@ namespace seal
             // Step (8): use Shenoy-Kumaresan method to convert the result to base q and write to encrypted1
             rns_tool->fastbconv_sk(temp_Bsk, get<2>(I), pool);
         });
-
+        cout<<"bfv_square_c2c_inplace"<<endl;
         // Set the scale
         encrypted.scale() = new_scale;
     }
@@ -838,6 +840,7 @@ namespace seal
 
         // Set the scale
         encrypted.scale() = new_scale;
+        cout<<"ckks_square_c2c_inplace"<<endl;
     }
 
     void Evaluator::relinearize_internal(
@@ -1665,7 +1668,7 @@ namespace seal
                 inverse_ntt_negacyclic_harvey(get<0>(J), get<3>(J));
             });
         });
-
+        cout<<"multiply_plain_normal(poly)"<<endl;
         // Set the scale
         encrypted.scale() = new_scale;
     }
@@ -1706,7 +1709,7 @@ namespace seal
         SEAL_ITERATE(iter(encrypted_ntt), encrypted_ntt_size, [&](auto I) {
             dyadic_product_coeffmod(I, plain_ntt_iter, coeff_modulus_size, coeff_modulus, I);
         });
-
+        cout<<"multiply_plain_ntt"<<endl;
         // Set the scale
         encrypted_ntt.scale() = new_scale;
     }
@@ -1800,7 +1803,7 @@ namespace seal
 
         // Transform to NTT domain
         ntt_negacyclic_harvey(plain_iter, coeff_modulus_size, ntt_tables);
-        cout<<"NTT"<<endl;
+        
         plain.parms_id() = parms_id;
     }
 
@@ -1840,7 +1843,7 @@ namespace seal
 
         // Transform each polynomial to NTT domain
         ntt_negacyclic_harvey(encrypted, encrypted_size, ntt_tables);
-        cout<<"NTT"<<endl;
+       
         // Finally change the is_ntt_transformed flag
         encrypted.is_ntt_form() = true;
 #ifdef SEAL_THROW_ON_TRANSPARENT_CIPHERTEXT
@@ -1887,7 +1890,7 @@ namespace seal
 
         // Transform each polynomial from NTT domain
         inverse_ntt_negacyclic_harvey(encrypted_ntt, encrypted_ntt_size, ntt_tables);
-        cout<<"INTT"<<endl;
+        
         // Finally change the is_ntt_transformed flag
         encrypted_ntt.is_ntt_form() = false;
 #ifdef SEAL_THROW_ON_TRANSPARENT_CIPHERTEXT
@@ -2058,6 +2061,7 @@ namespace seal
                 }
             });
         }
+        cout<<"Rotate"<<endl;
     }
 
     void Evaluator::switch_key_inplace(
